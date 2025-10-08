@@ -5,10 +5,11 @@ require_once "./controllers/ChauffeurController.php";
 $chauffeurController = new ChauffeurController();
 
 
+
 // Vérifie si le paramètre "page" est vide ou non présent dans l'URL
 if (empty($_GET["page"])) {
     // Si le paramètre est vide, on affiche un message d'erreur
-    echo "La page n'existe pas";
+    echo "Cette page est introuvable ";
 } else {
 
     // Sinon, on récupère la valeur du paramètre "page"
