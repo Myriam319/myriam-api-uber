@@ -4,8 +4,10 @@
 
 //$chauffeurController = new ChauffeurController();
 
-require_once "./controllers/ClientController.php";
-$clientController = new ClientController();
+//require_once "./controllers/ClientController.php";
+//$clientController = new ClientController();
+require_once "./controllers/VoitureController.php";
+$voitureController = new VoitureController();
 
 // Vérifie si le paramètre "page" est vide ou non présent dans l'URL
 if (empty($_GET["page"])) {
@@ -48,10 +50,10 @@ if (empty($_GET["page"])) {
             break;
             case"voitures":
                 if (isset($url[1])) {
-                    echo "Afficher les informations de la voiture : ". $url[1];
+                    $voitureController->getVoitureById($url[1]);
             } else {
                     // Sinon, on affiche tous les chauffeurs
-                    echo "Afficher les informations des voitures";
+                    echo $voitureController->getAllVoitures();
             }
             break;
             case"trajets":
