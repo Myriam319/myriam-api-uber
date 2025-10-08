@@ -1,5 +1,5 @@
 <?php
-class ChauffeurModel
+class ClientModel
 {
     private $pdo;
 
@@ -13,25 +13,22 @@ class ChauffeurModel
         }
     }
 
-    public function getDBAllChauffeurs()
+    public function getDBAllClients()
     {
-        $stmt = $this->pdo->query("SELECT * FROM Chauffeur");
+        $stmt = $this->pdo->query("SELECT * FROM Client");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getDBChauffeurById ($idChauffeur) {
-        $req = "SELECT * FROM chauffeur 
-                WHERE chauffeur_id = :idChauffeur
+    public function getDBClientById ($idClient) {
+        $req = "SELECT * FROM client
+                WHERE client_id = :idClient
         ";
         $stmt = $this->pdo->prepare($req);
-        $stmt->bindValue(":idChauffeur", $idChauffeur, PDO::PARAM_INT);
+        $stmt->bindValue(":idClient", $idClient, PDO::PARAM_INT);
         $stmt->execute();
-        $chauffeur = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $chauffeur;
+        $client = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $client;
     }
     
     
 }
-
-//$chauffeurModel = new chauffeurModel();
-//print_r($chauffeurModel->getDBAllChauffeurs());
