@@ -4,14 +4,14 @@ require_once "./controllers/ChauffeurController.php";
 
 $chauffeurController = new ChauffeurController();
 
-//require_once "./controllers/ClientController.php";
-//$clientController = new ClientController();
+require_once "./controllers/ClientController.php";
+$clientController = new ClientController();
 
-//require_once "./controllers/VoitureController.php";
-//$voitureController = new VoitureController();
+require_once "./controllers/VoitureController.php";
+$voitureController = new VoitureController();
 
-//require_once "./controllers/TrajetController.php";
-//$trajetController = new TrajetController();
+require_once "./controllers/TrajetController.php";
+$trajetController = new TrajetController();
 
 // Vérifie si le paramètre "page" est vide ou non présent dans l'URL
 if (empty($_GET["page"])) {
@@ -56,15 +56,24 @@ if (empty($_GET["page"])) {
             
            
             case "clients" : 
-                // Si un second segment est présent (ex: un ID), on l’utilise
-                if (isset($url[1])) {
-                    // Exemple : /chauffeurs/3 → affiche les infos du chauffeur 3
-                    $clientController->getClientById($url[1]);
-                } else {
-                    // Sinon, on affiche tous les chauffeurs
-                    echo $clientController->getAllClients();
-                }
+                switch ($method) {
+                    case "GET":
+                        if (isset($url[1])) {
+                        // Exemple : /chauffeurs/3 → affiche les infos du chauffeur 3
+                            $clientController->getClientById($url[1]);
+                        } else {
+                        // Sinon, on affiche tous les chauffeurs
+                            $clientController->getAllClients();
+                        }
+                        break;
+                    case "POST":
+                        $data= json_decode(file_get_contents("php://input"), true);
+                        $clientController->createClient($data);
+                        break;
+                        
+            }
             break;
+            
             case"voitures":
                 if (isset($url[1])) {
                     $voitureController->getVoitureById($url[1]);
